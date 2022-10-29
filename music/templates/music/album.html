@@ -1,0 +1,25 @@
+{% extends 'music/index.html' %}
+
+{% block title %}Music|Album{% endblock title %}
+
+{% block content %}
+
+<div class = "container my-0">
+    <div class = "row">
+
+        {% for album in albums %}
+        <div class="col-md-3 mt-5">
+            <div class="card border-0" style="width: 13rem; height:15rem;">
+                <img src="{{album.album_logo.url}}" alt="inn_logo" style = "margin:5px; border-radius:5px;"/>
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{album.album_name}}</h5>
+                    <p class="card-title text-center">{{album.genre}}</p>
+                    <p class="card-title text-center">{{album.release_date}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}
