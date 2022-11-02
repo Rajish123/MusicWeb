@@ -1,6 +1,6 @@
 {% extends 'music/index.html' %}
 
-{% block title %}Music|Albums{% endblock title %}
+{% block title %}Music|Songs{% endblock title %}
 
 {% block content %}
 
@@ -9,31 +9,31 @@
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{artists.image.url}}" class="d-block w-100" alt="..." style = "border-radius:5px; height:400px;">
+                    <img src="{{albums.album_logo.url}}" class="d-block w-100" alt="..." style = "border-radius:5px; height:400px;">
                 </div>
             </div>
         </div>
     </div>
-    {% if albums %}
+    {% if songs %}
         <div class = "album-container mt-4">
             <br><p class = "text-center"><strong>TOP albums</strong></p><br>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">SN</th>
+                        <th scope="col">Album</th>
                         <th scope="col">Title</th>
-                        <th scope="col">Songs</th>
-                        <th scope="col">Genre</th>
+                        <th scope="col">Length</th>
                         <th scope="col">Released Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for album in albums %}
+                    {% for song in songs %}
                         <tr>
                             <th scope="row">{{forloop.counter}}</th>
-                            <td><a href = "{{album.get_absolute_url}}">{{album.album_name}}</a></td>
-                            <td>{{album.songs.count}}</td>
-                            <td>{{album.genre}}</td>
+                            <td><a href = "">{{song.album.album_name}}</a></td>
+                            <td>{{song.title}}</td>
+                            <td>{{forloop.counter}}</td>
                             <td>{{album.release_date}}</td>
 
                         </tr>
@@ -43,12 +43,11 @@
         </div>
     {% else %}
         <div class="alert alert-secondary alert-dismissible fade show mx-4 mt-4" role="alert">
-            <strong>Sorry!</strong> No albums have been released yet.
+            <strong>Sorry!</strong> No songs have been released yet.
             </button>
         </div>
     {% endif %}
         
 </div>
-
 
 {% endblock content %}
