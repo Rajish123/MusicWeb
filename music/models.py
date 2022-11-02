@@ -1,8 +1,11 @@
+from enum import unique
 from tabnanny import verbose
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from PIL import Image
+from django.utils.text import slugify
+from django.urls import reverse
 
 # Create your models here.
 
@@ -26,6 +29,8 @@ class Profile(models.Model):
 class Artist(models.Model):
     image = models.ImageField(default = 'default.jpg', upload_to = "artist_picture")
     name = models.CharField(max_length=25, verbose_name = "Artists or Band name")
+    slug = models.SlugField(max_length = 200, null = False)
+    
     
     class Meta:
         ordering = ('name',)
@@ -35,6 +40,13 @@ class Artist(models.Model):
         ]
         verbose_name = 'Artist'
         verbose_name_plural = "Artists"
+        
+    def save(self,*args,**kwargs):
+        self.slug = slugify(self.name)
+        super(Artist, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("artist_album", kwargs={"id":self.id, "slug": self.slug})
         
     @staticmethod
     def get_all_artists():
@@ -66,6 +78,8 @@ class Album(models.Model):
         ]
         verbose_name = 'Album'
         verbose_name_plural = "Albums"
+        
+    
     
     @staticmethod
     def get_all_album():
