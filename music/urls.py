@@ -7,7 +7,10 @@ urlpatterns = [
     path('artist/',views.artist, name = 'artist'),
     path('album/',views.album, name = 'album'),
     # get album of artist
-    path('<int:id>/<slug:slug>/', views.ArtistAlbums, name = 'artist_album')
+    path('<int:id>/<slug:slug>/', views.ArtistAlbums, name = 'artist_album'),
+    # get all songs of selected album, requires album_id and album slug
+    path('albumsong/<int:album_id>/<slug:slug>/', views.AlbumSongs, name = 'album_song'),
+    
     
 ]
 
