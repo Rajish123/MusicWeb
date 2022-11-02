@@ -36,6 +36,7 @@ def AlbumSongs(request,album_id,slug):
         slug = slug
     )
     songs = albums.songs.all().order_by('-date_posted')
+    print(albums)
     context = {'albums':albums, 'songs':songs}
     return render(request,'music/album_songs.html',context)
     
