@@ -9,7 +9,10 @@ class ArtistAdmin(admin.ModelAdmin):
 
 @admin.register(Album)
 class AlbumAdmin(admin.ModelAdmin):
-    list_display = ['album_id','artist','album_name','album_logo','genre','release_date',]
+    list_display = ['album_id','artist','album_name','album_logo','genre','release_date','slug',]
+    prepopulated_fields = {"slug": ("album_name",)}
+    
+    
     
 @admin.register(Song)
 class SongAdmin(admin.ModelAdmin):
