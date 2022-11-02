@@ -7,7 +7,6 @@ from PIL import Image
 from django.utils.text import slugify
 from django.urls import reverse
 
-# Create your models here.
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -31,12 +30,13 @@ class Artist(models.Model):
     name = models.CharField(max_length=25, verbose_name = "Artists or Band name")
     slug = models.SlugField(max_length = 200, null = False)
     
-    
     class Meta:
         ordering = ('name',)
         # creates an index for the name field, will be useful for lookups based on name
         indexes = [
             models.Index(fields = ['name',]),
+            models.Index(fields = ['slug',]),
+            
         ]
         verbose_name = 'Artist'
         verbose_name_plural = "Artists"
@@ -69,24 +69,35 @@ class Album(models.Model):
     description = models.TextField(max_length = 250,null=True, blank=True,verbose_name = "description")
     date_posted = models.DateTimeField(default=timezone.now,verbose_name = "posted_date")
     votes = models.IntegerField(default = 0,verbose_name = "votes")
+    slug = models.SlugField(max_length = 200, null = False)
+    
     
     class Meta:
         ordering = ('-album_id',)
-        # creates an index for the name field, will be useful for lookups based on name
+        # creates an index for the name field, will be useful for lookups based on name as well as slug
         indexes = [
             models.Index(fields = ['album_id',]),
+            models.Index(fields = ['slug',]),
+            
         ]
         verbose_name = 'Album'
         verbose_name_plural = "Albums"
         
+    def save(self,*args,**kwargs):
+        self.slug = slugify(self.album_name)
+        super(Album, self).save(*args, **kwargs)
+        
+    def __str__(self):
+        return self.album_name
     
+    def get_absolute_url(self):
+        return reverse("album_song", kwargs={"album_id":self.album_id, "slug": self.slug})
     
     @staticmethod
     def get_all_album():
         return Album.objects.all()
 
-    def __str__(self):
-        return self.album_name
+    
 
 class Song(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name = "songs", verbose_name = 'related_album')
