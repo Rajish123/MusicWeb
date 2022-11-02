@@ -6,6 +6,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('artist/',views.artist, name = 'artist'),
     path('album/',views.album, name = 'album'),
+    # get album of artist
+    path('<int:id>/<slug:slug>/', views.ArtistAlbums, name = 'artist_album')
     
 ]
 
