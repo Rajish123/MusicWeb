@@ -6,6 +6,8 @@ from django.utils import timezone
 from PIL import Image
 from django.utils.text import slugify
 from django.urls import reverse
+from django.db.models.signals import post_save  
+from django.dispatch import receiver
 
 
 class Profile(models.Model):
@@ -24,6 +26,16 @@ class Profile(models.Model):
             img.thumbnail(output_size)  
             # override previous image
             img.save(self.image.path)
+
+# whenever user instances are created,automatically profile model are created
+@receiver(post_save, sender = User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user = instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender,instance, **kwargs):
+    instance.profile.save()
 
 class Artist(models.Model):
     image = models.ImageField(default = 'default.jpg', upload_to = "artist_picture")
@@ -104,6 +116,8 @@ class Song(models.Model):
     title = models.CharField(max_length=100, verbose_name = 'title')
     date_posted = models.DateTimeField(default=timezone.now, verbose_name = 'date')
     audio = models.FileField(upload_to = "mp3", verbose_name = 'song')
+    votes = models.IntegerField(default = 0,verbose_name = "votes")
+    
 
     class Meta:
         ordering = ('-id',)
@@ -116,6 +130,9 @@ class Song(models.Model):
         
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse("songs", kwargs={"id":self.id, })
 
 class MyPlaylist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

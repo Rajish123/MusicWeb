@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from .models import *
 
+def home(request):
+    return render(request,'music/home.html')
 
 def artist(request):
     context = {}
@@ -40,4 +42,14 @@ def AlbumSongs(request,album_id,slug):
     context = {'albums':albums, 'songs':songs}
     return render(request,'music/album_songs.html',context)
     
-
+def Songs(request,id):
+    context = {}
+    song = get_object_or_404(Song,id=id)
+    context = {'song':song}
+    return render(request,'music/songs.html',context)
+    
+def AllSongs(request):
+    context = {}
+    songs = Song.objects.all()
+    context = {'songs':songs}
+    return render(request,'music/songs_list.html',context)

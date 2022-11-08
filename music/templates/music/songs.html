@@ -1,0 +1,27 @@
+{% extends 'music/index.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class = "container">
+    <div class = "row">
+        <div class = "col-md-6" style = "padding-top:3%;">
+            <img src="{% static 'music/images/music_logo.jpeg' %}" alt="..." style = "height:265px; width:450px;">
+        </div>
+        <div class = "col-md-6">
+            <h2 style = "padding-top:8%; color:green;"><strong>Title: {{song.title}}</strong></h2>
+            <h5 style = "padding-top:2%;">Genre: {{song.album.genre}}</h5>
+            <h5 style = "padding-top:2%;">Album {{song.album.album_name}}</h5>
+            <h5 style = "padding-top:2%;">Singer: {{song.album.artist.name}}</h5><br>
+            <audio controls style="width:80%">
+                <source src="{{song.audio.url}}" type="audio/ogg">
+                {% comment %} <source src="https://www.w3schools.com/TagS/horse.mp3" type="audio/mpeg"> {% endcomment %}
+                Your browser does not support the audio element.
+            </audio>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

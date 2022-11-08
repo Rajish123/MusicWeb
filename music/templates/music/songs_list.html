@@ -1,0 +1,74 @@
+{% extends 'music/index.html' %}
+{% block content %}
+
+<div class = "container">
+    {% for song in songs %}
+    <div class="card mb-3 mt-4" style="max-width: 940px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{song.album.album_logo.url}}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title" style = "color:green;"><strong>{{song.title}}</strong></h5>
+              <p class="card-text">{{song.album.genre}}</p>
+              <a class="btn btn-outline-dark" href = "{{song.get_absolute_url}}" type="button" class="btn btn-light">
+                <i class="bi bi-play-fill"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                    <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                </svg>&nbsp;&nbsp;<span>Play</span>
+            </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+
+<div class = "container mx-4 mt-4">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">SN</th>
+                <th scope="col">Album</th>
+                <th scope="col">Title</th>
+                <th scope="col">Length</th>
+                <th scope = "col">Add to playlist</th>
+                <th scope = "col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for song in songs %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td><strong>{{song.album.album_name}}<strong></td>
+                    <td><span>{{song.title}}</span></td>
+                    <td><span>{{forloop.counter}}</span></td>
+                    <td>
+                        <a class="btn btn-outline-dark" href = "" type="button" class="btn btn-light">
+                            <i class="bi bi-plus-lg"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                            </svg>&nbsp;&nbsp;<span>Add</span>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-dark" href = "{{song.get_absolute_url}}" type="button" class="btn btn-light">
+                            <i class="bi bi-play-fill"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                              </svg>&nbsp;&nbsp;<span>Play</span>
+                        </a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+
+
+
+{% endblock content %}

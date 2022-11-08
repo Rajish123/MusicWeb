@@ -1,10 +1,126 @@
-{% comment %} {% extends 'music/indexhtml' %}
+{% extends 'music/index.html' %}
+
+{% load static %}
 
 {% block title %}Music|home{% endblock title %}
 
 {% block content %}
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'music/images/logo.jpeg' %}" class="d-block w-100" alt="...">
+        </div>
+    </div>
+</div>
 
+<h2 style = "padding-left:5%; padding-top:2%;">Top Artists</h2>
+<div class="row">
+    <div class="col-sm-3 mx-5 mt-4">
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'music/images/music_logo.jpeg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 mx-5 mt-4">
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'music/images/music_logo.jpeg' %}" class="card-img-top" alt="...">
 
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 mx-5 mt-4">
+        <div class="card" style="width: 18rem;">
+            <img src="{% static 'music/images/music_logo.jpeg' %}" class="card-img-top" alt="...">
 
-{% endblock content %} {% endcomment %}
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+  </div><br>
 
+{% comment %} cards {% endcomment %}
+<h2 style = "padding-left:5%; padding-top:2%;">Trending Albums</h2>
+<div class="row">
+    <div class="col-sm-3 mx-5 mt-4">
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'music/images/music_logo.jpeg' %}" class="card-img-top" alt="...">
+
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 mx-5 mt-4">
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'music/images/music_logo.jpeg' %}" class="card-img-top" alt="...">
+
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 mx-5 mt-4">
+        <div class="card" style="width: 18rem;">
+        <img src="{% static 'music/images/music_logo.jpeg' %}" class="card-img-top" alt="...">
+
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+  </div><br>
+
+<h2 style = "padding-left:5%; padding-top:2%;">Trending Songs</h2>
+<div class="row">
+    <div class="col-sm-3 mx-5 mt-4">
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'music/images/music_logo.jpeg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 mx-5 mt-4">
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'music/images/music_logo.jpeg' %}" class="card-img-top" alt="...">
+
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 mx-5 mt-4">
+        <div class="card" style="width: 18rem;">
+            <img src="{% static 'music/images/music_logo.jpeg' %}" class="card-img-top" alt="...">
+
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+  </div><br>
+
+{% endblock content %}
