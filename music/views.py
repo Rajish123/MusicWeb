@@ -3,7 +3,11 @@ from django.shortcuts import get_object_or_404
 from .models import *
 
 def home(request):
-    return render(request,'music/home.html')
+    context = {}
+    albums = Album.get_all_album().order_by("-votes")[:4]
+    
+    context = {'albums':albums}
+    return render(request,'music/home.html',context)
 
 def artist(request):
     context = {}
