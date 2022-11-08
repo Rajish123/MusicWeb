@@ -25,7 +25,9 @@
           <div class="card-body">
             <h5 class="card-title text-center" style = "font-color:green;">{{album.artist.name}}</h5>
             {% comment %} <p class="card-text">{{album.genre}}</p> {% endcomment %}
-            <a href="{{album.artist.get_absolute_url}}" class="btn btn-primary">View</a>
+          </div>
+          <div class="col text-center">
+            <a href="{{album.artist.get_absolute_url}}" class="btn btn-outline-dark">View</a>
           </div>
         </div>
       </div>
@@ -41,8 +43,10 @@
           <img src="{{album.album_logo.url}}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-center" style = "font-color:green;">{{album.album_name}}</h5>
-            <p class="card-text">{{album.genre}}</p>
-            <a href="{{album.get_absolute_url}}" class="btn btn-primary" style = "padding-left:2px;">View</a>
+            <p class="card-text text-center">{{album.genre}}</p>
+          </div>
+          <div class="col text-center">
+            <a href="{{album.get_absolute_url}}" class="btn btn-outline-dark">View</a>
           </div>
         </div>
       </div>

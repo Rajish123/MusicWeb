@@ -1,11 +1,11 @@
 {% extends 'music/index.html' %}
 
-{% block title %}Music|Albums{% endblock title %}
+{% block title %}Music|ArtistAlbums{% endblock title %}
 
 {% block content %}
 
 <div class = "container">
-    <div class = "image-container mx-4 mt-4">
+    <div class = "image-container mx-3 mt-4">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -13,42 +13,32 @@
                 </div>
             </div>
         </div>
-    </div>
-    {% if albums %}
-        <div class = "album-container mt-4">
-            <br><p class = "text-center"><strong>TOP albums</strong></p><br>
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">SN</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Songs</th>
-                        <th scope="col">Genre</th>
-                        <th scope="col">Released Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for album in albums %}
-                        <tr>
-                            <th scope="row">{{forloop.counter}}</th>
-                            <td><a href = "{{album.get_absolute_url}}">{{album.album_name}}</a></td>
-                            <td>{{album.songs.count}}</td>
-                            <td>{{album.genre}}</td>
-                            <td>{{album.release_date}}</td>
-                            
+    </div><br>
+    <h2 class = "text-center" style = "padding-top:30px; padding-bottom:5px;"><strong>Albums</strong></h2>
+    {% for album in albums %}
+        <div class="card mx-3 mt-4" style="max-width: 940px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{album.album_logo.url}}" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title" style = "color:green;">Title:&nbsp;<strong>{{album.album_name}}</strong></h5>
+                  <p>Genre:&nbsp;{{album.genre}}</p>
+                  <p>Total songs:&nbsp;{{album.songs.count}}</p>
 
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% else %}
-        <div class="alert alert-secondary alert-dismissible fade show mx-4 mt-4" role="alert">
-            <strong>Sorry!</strong> No albums have been released yet.
-            </button>
-        </div>
-    {% endif %}
-        
+                  <a class="btn btn-outline-dark" href = "{{album.get_absolute_url}}" type="button" class="btn btn-light">
+                    <i class="bi bi-play-fill"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                        <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                    </svg>&nbsp;&nbsp;<span>View Songs</span>
+                </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
 </div>
 
 
