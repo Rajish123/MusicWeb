@@ -17,3 +17,7 @@ class AlbumAdmin(admin.ModelAdmin):
 @admin.register(Song)
 class SongAdmin(admin.ModelAdmin):
     list_display = ['album','title','date_posted','audio',]
+    
+@admin.register(MyPlaylist)
+class PlaylistAdmin(admin.ModelAdmin):
+    list_display = ['user','song_id']
