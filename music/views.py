@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.shortcuts import get_object_or_404
 from .models import *
+from django.contrib import messages
+from django.db.models import Case,When
+
 
 def home(request):
     context = {}
@@ -42,7 +45,6 @@ def AlbumSongs(request,album_id,slug):
         slug = slug
     )
     songs = albums.songs.all().order_by('-date_posted')
-    print(albums)
     context = {'albums':albums, 'songs':songs}
     return render(request,'music/album_songs.html',context)
     
@@ -57,3 +59,39 @@ def AllSongs(request):
     songs = Song.objects.all()
     context = {'songs':songs}
     return render(request,'music/songs_list.html',context)
+
+def addsong(request,user,songid):
+    my_playlist = MyPlaylist(user=user,song_id=songid)
+    my_playlist.save()
+    messages.success(request,"Successfully added to playlist")
+    
+
+def AddToPlaylist(request):
+    if request.method == "POST":
+        songid = request.POST['song_id']
+        user = request.user
+        print(songid)
+        my_playlist = MyPlaylist.objects.filter(user = request.user)
+        print(my_playlist.exists())
+        if my_playlist.exists():
+            for i in my_playlist:
+                if songid == i.song_id:
+                    messages.info(request,"This song is already in your playlist")
+                    break
+                else:
+                    addsong(request,user,songid)
+        else:
+            addsong(request,user,songid)
+        return redirect('myplaylist')
+    
+def my_playlist(request):
+    my_playlist = MyPlaylist.objects.filter(user = request.user)   
+    print(my_playlist)     
+    ids = []
+    for i in my_playlist:
+        ids.append(i.song_id)
+    # display ablum according to the time when added
+    preserved = Case(*[When(pk = pk, then = pos) for pos, pk in enumerate(ids)])
+    song = Song.objects.filter(id__in = ids).order_by(preserved)
+    print(f"songs:{song}")
+    return render(request, 'music/myplaylist.html',{'playlist':my_playlist,'songs':song})
