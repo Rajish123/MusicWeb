@@ -111,7 +111,7 @@ class Song(models.Model):
 
 class MyPlaylist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    album_id = models.CharField(max_length=100000,default="")
+    song_id = models.CharField(max_length=100000,default="")
 
     def __str__(self):
         return f"{self.user.profile}-->playlist"
