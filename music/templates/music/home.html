@@ -16,9 +16,12 @@
 </div>
 {% endif %}
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
+    <div class="carousel-inner" style = ".carousel {
+      width:640px;
+      height:360px;
+    }">
         <div class="carousel-item active">
-            <img src="{% static 'music/images/image.jpeg' %}" class="d-block w-100 h-50" alt="...">
+            <img src="{% static 'music/images/image.jpeg' %}" style = "height:320px; width:100%;" h-30" alt="...">
         </div>
     </div>
 </div>
