@@ -5,7 +5,8 @@ from .models import *
 def home(request):
     context = {}
     albums = Album.get_all_album().order_by("-votes")[:4]
-    context = {'albums':albums}
+    songs = Song.get_all_songs().order_by("-votes")[:4]
+    context = {'albums':albums, 'songs':songs}
     return render(request,'music/home.html',context)
 
 def artist(request):
