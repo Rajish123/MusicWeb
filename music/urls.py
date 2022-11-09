@@ -14,7 +14,10 @@ urlpatterns = [
     path('albumsong/<int:album_id>/<slug:slug>/', views.AlbumSongs, name = 'album_song'),
     # requires song id
     path('music/<str:id>/',views.Songs, name = 'songs'),
-    path('music_list/',views.AllSongs, name = 'all_songs')
+    path('music_list/',views.AllSongs, name = 'all_songs'),
+    path('add_to_playlist/',views.AddToPlaylist,name = 'add_playlist'),
+    path('myplaylist/', views.my_playlist, name = 'myplaylist'),
+    
     
     
 ]
