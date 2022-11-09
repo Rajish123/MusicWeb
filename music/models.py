@@ -103,6 +103,11 @@ class Song(models.Model):
     
     def get_absolute_url(self):
         return reverse("songs", kwargs={"id":self.id, })
+ 
+    @staticmethod
+    def get_all_songs():
+        return Song.objects.all()
+
 
 class MyPlaylist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
