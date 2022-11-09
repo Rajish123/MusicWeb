@@ -1,22 +1,49 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
 
 
 def Signup(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
-        print(form.data)
         if form.is_valid():
             form.save()
-            data = form.cleaned_data.get("form_field")
-            print(data)
+            messages.success(request,'Account created successfully!')
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request,user)
+            return redirect('accounts:login')
+        else:
+            messages.warning(request,'Sorry!unable to create this account')
     else:
-        
         form = UserCreationForm()
-        # print("not vlaid")
     return render(request,'accounts/signup.html',{'form':form})
+
+def Login(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request,data = request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username,password=password)
+            if user is not None:
+                login(request,user)
+                messages.info(request,f"You are now logged in as {username}")
+                return redirect('home')
+            else:
+                messages.error(request,"Invalid username and password")
+        else:
+            messages.error(request,"Invalid username and password")
+    form = AuthenticationForm()
+    return render(request,'accounts/login.html',{'form':form})
+
+def Logout(request):
+    logout(request)
+    messages.info(request,"You have successfully loged out.")
+    return redirect('home')
+    
+            
+        
