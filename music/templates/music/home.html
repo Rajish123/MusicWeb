@@ -5,6 +5,16 @@
 {% block title %}Music|home{% endblock title %}
 
 {% block content %}
+
+{% if messages %}
+<div class="alert alert-danger" role="alert">
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
