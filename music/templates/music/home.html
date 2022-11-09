@@ -66,39 +66,23 @@
   <h2 style = "padding-left:5%; padding-top:2%;">Trending Songs&nbsp;&nbsp;<a href = "{% url 'all_songs' %}"><span style = "float:right; font-size:15px;">All songs</span></a></h2>
 
   <div class="row">
+    {% for song in songs %}
       <div class="col-md-2 mx-5 mt-4">
         <div class="card" style="width: 18rem;">
-          <img src="{% static 'music/images/music_logo.jpeg' %}" class="card-img-top" alt="...">
+          <img src="{{song.album.album_logo.url}}" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <h5 class="card-title text-center" style = "font-color:green;">{{song.title}}</h5>
+            <p class="card-text text-center">Album:&nbsp;{{song.album.album_name}}</p>
+
+          </div>
+          <div class="col text-center">
+            <a href="{{song.get_absolute_url}}" class="btn btn-outline-dark">View</a>
           </div>
         </div>
       </div>
-      <div class="col-sm-3 mx-5 mt-4">
-        <div class="card" style="width: 18rem;">
-          <img src="{% static 'music/images/music_logo.jpeg' %}" class="card-img-top" alt="...">
-
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-3 mx-5 mt-4">
-          <div class="card" style="width: 18rem;">
-              <img src="{% static 'music/images/music_logo.jpeg' %}" class="card-img-top" alt="...">
-
-            <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
+    {% endfor %}
   </div><br>
+
 </div>
 
 {% endblock content %}
