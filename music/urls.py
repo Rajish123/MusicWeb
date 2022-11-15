@@ -17,6 +17,10 @@ urlpatterns = [
     path('music_list/',views.AllSongs, name = 'all_songs'),
     path('add_to_playlist/',views.AddToPlaylist,name = 'add_playlist'),
     path('myplaylist/', views.my_playlist, name = 'myplaylist'),
+    path('vote_song/<str:id>/',views.Vote,name='vote'),
+    path('vote_album/<str:album_id>/',views.VoteAlbum,name='votealbum'),
+    path('search/', views.Search, name='search')
+    
     
     
     
