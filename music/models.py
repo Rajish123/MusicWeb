@@ -78,6 +78,12 @@ class Album(models.Model):
     @staticmethod
     def get_all_album():
         return Album.objects.all()
+    
+    @staticmethod
+    def get_album_by_id(album_id):
+        return Album.objects.get(album_id=album_id)
+
+
 
     
 
@@ -107,6 +113,10 @@ class Song(models.Model):
     @staticmethod
     def get_all_songs():
         return Song.objects.all()
+    
+    @staticmethod
+    def get_song_by_id(id):
+        return Song.objects.get(id=id)
 
 
 class MyPlaylist(models.Model):
