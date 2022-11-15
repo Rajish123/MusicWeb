@@ -3,7 +3,8 @@ from django.shortcuts import get_object_or_404
 from .models import *
 from django.contrib import messages
 from django.db.models import Case,When
-
+from django.contrib.auth.decorators import login_required
+from music.middlewares.auth import auth_middleware
 
 def home(request):
     context = {}
@@ -56,7 +57,7 @@ def Songs(request,id):
     
 def AllSongs(request):
     context = {}
-    songs = Song.objects.all()
+    songs = Song.objects.all().order_by('-votes')
     context = {'songs':songs}
     return render(request,'music/songs_list.html',context)
 
@@ -66,13 +67,12 @@ def addsong(request,user,songid):
     messages.success(request,"Successfully added to playlist")
     
 
+@auth_middleware
 def AddToPlaylist(request):
     if request.method == "POST":
         songid = request.POST['song_id']
         user = request.user
-        print(songid)
         my_playlist = MyPlaylist.objects.filter(user = request.user)
-        print(my_playlist.exists())
         if my_playlist.exists():
             for i in my_playlist:
                 if songid == i.song_id:
@@ -84,14 +84,35 @@ def AddToPlaylist(request):
             addsong(request,user,songid)
         return redirect('myplaylist')
     
+@auth_middleware
 def my_playlist(request):
     my_playlist = MyPlaylist.objects.filter(user = request.user)   
-    print(my_playlist)     
     ids = []
     for i in my_playlist:
         ids.append(i.song_id)
     # display ablum according to the time when added
     preserved = Case(*[When(pk = pk, then = pos) for pos, pk in enumerate(ids)])
     song = Song.objects.filter(id__in = ids).order_by(preserved)
-    print(f"songs:{song}")
     return render(request, 'music/myplaylist.html',{'playlist':my_playlist,'songs':song})
+
+@login_required
+def Vote(request,id):
+    song = Song.get_song_by_id(id)
+    song.votes += 1
+    song.save()
+    messages.success(request,"You liked this song.")
+    return redirect("all_songs")
+
+@login_required
+def VoteAlbum(request,album_id):
+    album = Album.get_album_by_id(album_id)
+    album.votes += 1
+    album.save()
+    messages.success(request,"You liked this song.")
+    return redirect("album")
+
+def Search(request):
+    query = request.GET.get('query')
+    song = Song.get_all_songs()
+    qs = song.filter(title__icontains = query)
+    return render(request, 'music/search.html',{'songs':qs, 'query':query})
