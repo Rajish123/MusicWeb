@@ -40,7 +40,9 @@
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" name = "password1" placeholder="Password">
             </div> {% endcomment %}
+            {% comment %} <input type="hidden" name="next" value="{{ request.GET.next }}"/> {% endcomment %}
             <button type="submit" class="btn btn-primary">Login</button>
+
         </form>
     </div>
 
