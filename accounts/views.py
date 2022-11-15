@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponseRedirect
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
@@ -23,6 +23,7 @@ def Signup(request):
     return render(request,'accounts/signup.html',{'form':form})
 
 def Login(request):
+    return_url = request.GET.get('return_url')
     if request.method == "POST":
         form = AuthenticationForm(request,data = request.POST)
         if form.is_valid():
@@ -32,12 +33,19 @@ def Login(request):
             if user is not None:
                 login(request,user)
                 messages.info(request,f"You are now logged in as {username}")
-                return redirect('home')
+                print(return_url)
+                if return_url:
+                    # if you want to redirect with the help of url
+                    return HttpResponseRedirect(return_url)                    
+                else:
+                    return_url = None
+                    return redirect('home')
             else:
                 messages.error(request,"Invalid username and password")
         else:
             messages.error(request,"Invalid username and password")
     form = AuthenticationForm()
+    return_url = request.GET.get('return_url')
     return render(request,'accounts/login.html',{'form':form})
 
 def Logout(request):
